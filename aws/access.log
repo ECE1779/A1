@@ -1,0 +1,3 @@
+127.0.0.1 - - [07/Feb/2017:18:25:15 +0000] "GET /trivial HTTP/1.1" 404 233 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:51.0) Gecko/20100101 Firefox/51.0"
+127.0.0.1 - - [07/Feb/2017:18:25:21 +0000] "GET / HTTP/1.1" 200 449 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:51.0) Gecko/20100101 Firefox/51.0"
+127.0.0.1 - - [07/Feb/2017:18:25:24 +0000] "GET /ec2_examples HTTP/1.1" 500 291 "http://localhost:5000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:51.0) Gecko/20100101 Firefox/51.0"

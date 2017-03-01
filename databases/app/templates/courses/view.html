@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <form action='{{url_for('courses_list')}}' method='get'>
+        <input type='submit' value='Back'/ >
+    </form>
+    
+    <div>Code: {{code}}</div>
+    <div>Title: {{ctitle}}</div>
+    <div>Description: {{description}}</div>
+{% endblock %}
