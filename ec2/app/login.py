@@ -48,15 +48,28 @@ def user_login():
     id = row[0]
     username = row[1]
     password = row[2]
-    #do the login
-    login_user(User(id,username, password))
 
-    return redirect(url_for('welcome_page'))
+    session["username"] = username
+    flask.flash("User %s login successfully" % username)
 
-@webapp.route("/welcome", methods=["GET"])
-def welcome_page():
-    return render_template("/welcome.html",title="Welcome")
+    if username == "admin":
+        return redirect(url_for("manager_ui"))
+    else:
+        return redirect(url_for('user_ui'))
 
+
+@webapp.route("/logout", methods=["GET"])
+def user_logout():
+    session.clear()
+    return render_template("/main.html", error_msg="You are logged out")
+
+@webapp.route("/user_ui", methods=["GET"])
+def user_ui():
+    return render_template("/user_ui.html",title="Welcome")
+
+@webapp.route("/manager_ui", methods=["GET"])
+def manager_ui():
+    return render_template("/manager_ui.html", title = "Welcome")
 
 @webapp.route("/register", methods=["GET"])
 def user_create():
