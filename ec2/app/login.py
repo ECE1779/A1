@@ -19,7 +19,7 @@ def get_db():
     if db is None:
         db = g._database = connect_to_database()
     return db
-
+"""
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
 login_manager = LoginManager()
@@ -31,18 +31,16 @@ def load_user(user_id):
     return User.get(user_id)
 
 
-# silly user model
+# user model
 class User(UserMixin):
-    user_query = """SELECT *
-               FROM users
-               WHERE login = %s AND password = %s
+    user_query = """
             """
 
-    def __init__(self, username, password):
+    def __init__(self, id, username, password):
+        self.id = id        
         self.username = username
-
         self.password = password
-
+        
     def __repr__(self):
         return "%s/%s" % (self.username, self.password)
 
@@ -57,12 +55,15 @@ class User(UserMixin):
         else:
             return None
 
+    def get_id(self):
+        return self.id
+
 @login_manager.user_loader
 #TODO modify this to accept userid password
 def load_user(user_id):
     return User.get(user_id)
 
-
+"""
 @webapp.route("/logout", methods=["GET"])
 def user_logout():
     logout_user()
@@ -88,10 +89,12 @@ def user_login():
     if row is None:
         return render_template("/main.html", error_msg="User does not exist!",
                                username = username)
-
+    id = row[0]
+    username = row[1]
+    password = row[2]
     #do the login
-    login_user(User(username, password))
-    #current_user = User(username,password)
+    login_user(User(id,username, password))
+
     return redirect(url_for('welcome_page'))
 
 @webapp.route("/welcome", methods=["GET"])
