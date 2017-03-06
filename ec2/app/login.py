@@ -20,11 +20,6 @@ def get_db():
         db = g._database = connect_to_database()
     return db
 
-@webapp.route("/logout", methods=["GET"])
-def user_logout():
-    logout_user()
-    return redirect(url_for("welcome_page"))
-
 
 @webapp.route("/", methods=["POST"])
 def user_login():
