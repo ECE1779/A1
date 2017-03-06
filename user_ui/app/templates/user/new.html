@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class='error'>{{error_msg if error_mag != None}}</div>
+
+    <form action='{{url_for('user_create_save')}}' method='post'>
+
+
+        <div>
+        <label>User</label>
+        <input type='text' name='username' value='{{username if username  != None}}'>
+        </div>
+
+        <div>
+        <label>Password</label>
+        <input type='text' name='Password' value='{{Password if Password  != None}}'>
+        </div>
+
+
+        <div><input type="submit" value="Save"></div>
+    </form>
+{% endblock %}

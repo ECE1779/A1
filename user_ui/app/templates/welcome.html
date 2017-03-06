@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <ul>
+        <li><a href="{{url_for('upload_img')}}" method="GET">Upload image</a></li>
+        <li><a href="{{url_for('view_img')}}" method="GET">View image</a></li>
+
+    </ul>
+
+{% endblock %}

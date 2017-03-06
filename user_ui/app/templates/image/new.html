@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class='error'>{{error_msg if error_mag != None}}</div>
+
+     <form action="/FileUpload"  enctype="multipart/form-data" method="post">
+
+   	What is the image files to upload? <input type="file" name="uploadedfile"><br />
+
+   	<input type="submit" value="Send">
+	<input type="reset">
+    </form>
+
+    <form action="/welcome" method="GET">
+        <input type="submit" value="Back">
+    </form>
+{% endblock %}
