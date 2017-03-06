@@ -19,51 +19,7 @@ def get_db():
     if db is None:
         db = g._database = connect_to_database()
     return db
-"""
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
-login_manager = LoginManager()
-login_manager.init_app(webapp)
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.get(user_id)
-
-
-# user model
-class User(UserMixin):
-    user_query = """
-            """
-
-    def __init__(self, id, username, password):
-        self.id = id        
-        self.username = username
-        self.password = password
-        
-    def __repr__(self):
-        return "%s/%s" % (self.username, self.password)
-
-    @classmethod
-    def get(cls,username, password):
-        cnx = get_db()
-        cursor = cnx.cursor()
-        cursor.execute(cls.user_query,(username, password))
-        row = cursor.fetchone()
-        if row:
-            return User(row[0], row[1])
-        else:
-            return None
-
-    def get_id(self):
-        return self.id
-
-@login_manager.user_loader
-#TODO modify this to accept userid password
-def load_user(user_id):
-    return User.get(user_id)
-
-"""
 @webapp.route("/logout", methods=["GET"])
 def user_logout():
     logout_user()
