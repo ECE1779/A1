@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, request, session
 from app import webapp
 
 import mysql.connector
-
+import boto3
 
 from app.config import db_config
 
@@ -45,7 +45,7 @@ def user_login():
     password = row[2]
 
     session["username"] = username
-    flask.flash("User %s login successfully" % username)
+    flash("User %s login successfully" % username)
 
     if username == "admin":
         return redirect(url_for("manager_ui"))
@@ -58,13 +58,16 @@ def user_logout():
     session.clear()
     return render_template("/main.html", error_msg="You are logged out")
 
+
 @webapp.route("/user_ui", methods=["GET"])
 def user_ui():
     return render_template("/user_ui.html",title="Welcome")
 
+
 @webapp.route("/manager_ui", methods=["GET"])
 def manager_ui():
     return render_template("/manager_ui.html", title = "Welcome")
+
 
 @webapp.route("/register", methods=["GET"])
 def user_create():
@@ -86,7 +89,6 @@ def user_create_save():
     if error:
         return render_template("user/new.html", title="New User", error_msg=error_msg,
                                username=username, password = password)
-
 
     cnx = get_db()
     cursor = cnx.cursor()

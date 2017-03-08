@@ -1,8 +1,10 @@
 from flask import render_template, redirect, url_for, request, session
 from app import webapp
 import mysql.connector
-
+import boto3
 from app.config import db_config
+from wand.image import Image
+import os
 
 def connect_to_database():
     return mysql.connector.connect(user=db_config['user'],
@@ -23,27 +25,91 @@ def upload_img():
 
 @webapp.route('/upload', methods=['POST'])
 def upload_img_save():
-	f = request.files['new_file']
-	if f.filename == '':
-		abort(404)
-	s3.Object("ece1779b",f.filename).put(Body=f)
-	cnx = get_db()
-	cursor = cnx.cursor()
-	query = ''' INSERT INTO images (usersId,key1,key2,key3,key4) values (%s, %s, %s, %s, %s) '''
-	cursor.execute(query, (id, f.filename, f.filename, f.filename, f.filename))
-	cnx.commit()
-	return redirect(url_for('user_ui', id=id))
+    f = request.files['new_file']
+    if f.filename == '':
+        return redirect(url_for("upload_img"))
 
-@webapp.route("/view_img", methods=["GET"])
-def view_img():
+    #get rotated images
+    f2 = image_transform(f, 90)
+    f2_filename = f.filename + "_90"
+    f3 = image_transform(f, 180)
+    f3_filename = f.filename + "_180"
+    f4 = image_transform(f, 270)
+    f4_filename = f.filename + "_270"
+
+    #upload files to s3 bucket
+    s3 = boto3.client("s3")
+    #s3.upload_fileobj(f, "bucket-name", "key-name")
+    s3.upload_fileobj(f, "bucket-name", f.filename)
+    s3.upload_fileobj(f2, "bucket-name", f2_filename)
+    s3.upload_fileobj(f3, "bucket-name", f3_filename)
+    s3.upload_fileobj(f4, "bucket-name", f4_filename)
+
+    cnx = get_db()
+    cursor = cnx.cursor()
+    query = ''' INSERT INTO images (usersId,key1,key2,key3,key4) values (%s, %s, %s, %s, %s) '''
+    cursor.execute(query, (id, f.filename, f2_filename, f3_filename, f4_filename))
+    cnx.commit()
+    return redirect(url_for('upload_img'))
+
+
+#Upload a new image and tranform it
+def image_transform(f, degree):
+
+    image_binary = f.read()
+
+    img = Image(blob=image_binary)
+    i = img.clone()
+
+    i.rotate(degree)
+    jpeg_bin = i.make_blob("jpeg")
+
+    return jpeg_bin
+
+
+
+
+@webapp.route("/list_img", methods=["GET"])
+def list_img():
     cnx = get_db()
 
     cursor = cnx.cursor()
 
     query = """SELECT * FROM images WHERE usersId = %s"""
 
-    row = cursor.fetchone()
-    if row:
-        return render_template("user_ui/view.html",title = "View images", cursor = cursor)
+    cursor.execute(query, (session["username"],))
 
-    return
+    row = cursor.fetchone()
+    #	http://s3.amazonaws.com/bucket/key  access an object
+    """
+    s3 = boto3.resource('s3')
+    bucket = s3.Bucket('my-bucket')
+    for obj in bucket.objects.all():
+        print(obj.key)
+    """
+    if row:
+        return render_template("image/list.html", title = "List images", cursor = cursor)
+    else:
+        return redirect(url_for("user_ui"), error_msg = "you dont have any images")
+
+
+@webapp.route("/view_img/<int: fname>", methods=["GET"])
+def view_img(fname):
+    cnx = get_db()
+
+    cursor = cnx.cursor()
+
+    query = """SELECT * FROM images where usersId = %s AND key1 = %s"""
+
+    cursor.execute(query, (session["username"], fname))
+
+    row = cursor.fetchone()
+
+    if row:
+        return render_template("image/view.html", title = "View images", f1 = row[2], f2 = row[3], f3 = row[4], f4 = row[5])
+    else:
+        return redirect(url_for("user_ui"), error_msg="image not found")
+
+
+
+

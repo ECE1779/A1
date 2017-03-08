@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class='info'> {{info_msg if info_msg != None}} </div>
+
+
+<table />
+<thread>
+	<th>Original</th>
+	<th>Transform_1</th>
+	<th>Transform_2</th>
+	<th>Transform_3</th>
+</thread>
+
+<tr>
+
+
+
+	<td><img src="https://s3.amazonaws.com/ece1779b/{{f1}}" alt="image" /></td>
+	<td><img src="https://s3.amazonaws.com/ece1779b/{{f2}}" alt="image" /></td>
+	<td><img src="https://s3.amazonaws.com/ece1779b/{{f3}}" alt="image" /></td>
+	<td><img src="https://s3.amazonaws.com/ece1779b/{{f4}}" alt="image" /></td>
+</tr>
+
+
+</table>
+
+{% endblock %}
