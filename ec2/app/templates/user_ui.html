@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class='error'>{{error_msg if error_mag != None}}</div>
+    <div class='error'>{{error_msg if error_msg != None}}</div>
     <ul>
         <li><a href="{{url_for('upload_img')}}" method="GET">Upload image</a></li>
         <li><a href="{{url_for('list_img')}}" method="GET">View image</a></li>

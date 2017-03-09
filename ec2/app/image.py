@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request, session
+from flask import render_template, redirect, url_for, request, session, g
 from app import webapp
 import mysql.connector
 import boto3
@@ -47,7 +47,7 @@ def upload_img_save():
 
     cnx = get_db()
     cursor = cnx.cursor()
-    query = ''' INSERT INTO images (usersId,key1,key2,key3,key4) values (%s, %s, %s, %s, %s) '''
+    query = ''' INSERT INTO images (userId,key1,key2,key3,key4) values (%s, %s, %s, %s, %s) '''
     cursor.execute(query, (id, f.filename, f2_filename, f3_filename, f4_filename))
     cnx.commit()
     return redirect(url_for('upload_img'))
@@ -75,7 +75,7 @@ def list_img():
 
     cursor = cnx.cursor()
 
-    query = """SELECT * FROM images WHERE usersId = %s"""
+    query = """SELECT * FROM images WHERE userId = %s"""
 
     cursor.execute(query, (session["username"],))
 
@@ -90,16 +90,16 @@ def list_img():
     if row:
         return render_template("image/list.html", title = "List images", cursor = cursor)
     else:
-        return redirect(url_for("user_ui"), error_msg = "you dont have any images")
+        return render_template("image/list.html", title = "List images", info_msg = "you dont have any images")
 
 
-@webapp.route("/view_img/<int: fname>", methods=["GET"])
+@webapp.route("/view_img/<fname>", methods=["GET"])
 def view_img(fname):
     cnx = get_db()
 
     cursor = cnx.cursor()
 
-    query = """SELECT * FROM images where usersId = %s AND key1 = %s"""
+    query = """SELECT * FROM images where userId = %s AND key1 = %s"""
 
     cursor.execute(query, (session["username"], fname))
 

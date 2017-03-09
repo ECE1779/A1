@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class='error'>{{error_msg if error_mag != None}}</div>
+    <div class='error'>{{error_msg if error_msg != None}}</div>
 
     <form action='{{url_for('user_create_save')}}' method='post'>
 
@@ -12,10 +12,17 @@
 
         <div>
         <label>Password</label>
-        <input type='text' name='Password' value='{{Password if Password  != None}}'>
+        <input type='text' name='password' value='{{password if password  != None}}'>
         </div>
 
 
         <div><input type="submit" value="Save"></div>
+    </form>
+
+
+
+
+        <form action="{{ url_for("user_login") }}" method="GET">
+        <input type="submit" value="Back">
     </form>
 {% endblock %}

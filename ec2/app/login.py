@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request, session
+from flask import render_template, redirect, url_for, request, session, g
 from app import webapp
 
 import mysql.connector
@@ -45,7 +45,7 @@ def user_login():
     password = row[2]
 
     session["username"] = username
-    flash("User %s login successfully" % username)
+    #flash("User %s login successfully" % username)
 
     if username == "admin":
         return redirect(url_for("manager_ui"))
