@@ -18,6 +18,13 @@ def get_db():
         db = g._database = connect_to_database()
     return db
 
+
+@app.teardown_appcontext
+def teardown_db(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
 @webapp.route("/upload", methods=["GET"])
 def upload_img():
     return render_template("image/new.html", title="New image")
@@ -40,10 +47,10 @@ def upload_img_save():
     #upload files to s3 bucket
     s3 = boto3.client("s3")
     #s3.upload_fileobj(f, "bucket-name", "key-name")
-    s3.upload_fileobj(f, "bucket-name", f.filename)
-    s3.upload_fileobj(f2, "bucket-name", f2_filename)
-    s3.upload_fileobj(f3, "bucket-name", f3_filename)
-    s3.upload_fileobj(f4, "bucket-name", f4_filename)
+    s3.upload_fileobj(f, "bucketforprj1", f.filename)
+    s3.upload_fileobj(f2, "bucketforprj1", f2_filename)
+    s3.upload_fileobj(f3, "bucketforprj1", f3_filename)
+    s3.upload_fileobj(f4, "bucketforprj1", f4_filename)
 
     cnx = get_db()
     cursor = cnx.cursor()

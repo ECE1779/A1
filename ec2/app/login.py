@@ -21,6 +21,12 @@ def get_db():
     return db
 
 
+@app.teardown_appcontext
+def teardown_db(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
 @webapp.route("/", methods=["POST"])
 def user_login():
     username = request.form.get("username","")

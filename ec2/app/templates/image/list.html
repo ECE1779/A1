@@ -20,12 +20,12 @@
 	<td>
         <a href="{{ url_for("view_img", fname=row[2]) }}" method="GET">
 
-            <img src="https://s3.amazonaws.com/ece1779b/{{row[2]}}" alt="image" class="thumbnail"/>
+            <img src="https://s3.amazonaws.com/bucketforprj1/{{row[2]}}" alt="image" class="thumbnail"/>
         </a>
     </td>
-	<td><img src="https://s3.amazonaws.com/ece1779b/{{row[3]}}" alt="image" height="300"/></td>
-	<td><img src="https://s3.amazonaws.com/ece1779b/{{row[4]}}" alt="image" height="300"/></td>
-	<td><img src="https://s3.amazonaws.com/ece1779b/{{row[5]}}" alt="image" height="300"/></td>
+	<td><img src="https://s3.amazonaws.com/bucketforprj1/{{row[3]}}" alt="image" height="300"/></td>
+	<td><img src="https://s3.amazonaws.com/bucketforprj1/{{row[4]}}" alt="image" height="300"/></td>
+	<td><img src="https://s3.amazonaws.com/bucketforprj1/{{row[5]}}" alt="image" height="300"/></td>
 </tr>
 {% endfor %}
 
