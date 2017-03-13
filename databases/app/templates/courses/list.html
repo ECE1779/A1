@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <form action="{{url_for('courses_create')}}" method="get">
+        <input type="submit" value="New">
+    </form>
+
+    <table /> 
+    <thead> 
+           <th>ID</th>
+           <th>Code</th>
+           <th>Title</th>
+           <th>Description</th>
+           <th></th>
+           
+    </thead> 
+    {% for row in cursor %}
+        <tr>
+            <td>{{ row[0]}}</td> 
+            <td>{{ row[1]}}</td> 
+            <td>{{ row[2]}}</td> 
+            <td>{{ row[3]}}</td> 
+            <td>
+                <form action="{{url_for('courses_view',id=row[0])}}" method='get'>
+                    <input type='submit' value='Details' />
+                </form>
+            </td>
+         
+            <td>
+                <form action="{{url_for('courses_edit',id=row[0])}}" method='get'>
+                    <input type='submit' value='Edit' />
+                </form>
+            </td>
+            <td>
+                <form action="{{url_for('courses_delete',id=row[0])}}" method='post' onsubmit='return confirm("Are you sure?")'>
+                    <input type='submit' value='Delete' />
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

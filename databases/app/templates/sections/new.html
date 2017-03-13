@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class='error'>{{error_msg if error_mag != None}}</div>
+    
+    <form action='{{url_for('sections_create_save')}}' method='post'>
+        <div>
+        <label>Course</label>  
+        <select name='course_id'>  
+            {% for row in cursor %}
+                {% if course_id and course_id|int == row[0] %}
+                    <option value='{{row[0]}}' selected="selected"> {{ row[1] }}:{{ row[2]}} </option>
+                {% else %}
+                    <option value='{{row[0]}}'> {{ row[1] }}:{{ row[2]}} </option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        
+        </div>
+        <div> 
+        <label>Time</label>
+        <input type='text' name='time' value='{{time if time  != None}}'>
+        </div>
+        
+        <div>
+        <label>Location</label>
+        <input type='text' name='location' value='{{clocation if clocation  != None}}'>
+        </div>
+
+        <div>
+        <label>Maximum enrolment</label>
+        <input type='text' name='maximum_enrolment' value='{{max_enrolment if max_enrolment  != None}}'>
+        </div>
+
+        <div>
+        <label>Current enrolment</label>
+        <input type='text' name='current_enrolment' value='{{cur_enrolment if cur_enrolment  != None}}'>
+        </div>
+
+
+        <div><input type="submit" value="Save"></div>
+    </form>
+{% endblock %}

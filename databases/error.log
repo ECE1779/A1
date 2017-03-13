@@ -1,0 +1,50 @@
+[2017-02-07 18:19:14 +0000] [6943] [INFO] Starting gunicorn 19.6.0
+[2017-02-07 18:19:14 +0000] [6943] [INFO] Listening at: http://0.0.0.0:5000 (6943)
+[2017-02-07 18:19:14 +0000] [6943] [INFO] Using worker: sync
+[2017-02-07 18:19:14 +0000] [6946] [INFO] Booting worker with pid: 6946
+[2017-02-07 18:19:14 +0000] [6947] [INFO] Booting worker with pid: 6947
+[2017-02-07 18:19:14 +0000] [6948] [INFO] Booting worker with pid: 6948
+[2017-02-07 18:19:14 +0000] [6949] [INFO] Booting worker with pid: 6949
+[2017-02-07 18:19:14 +0000] [6950] [INFO] Booting worker with pid: 6950
+[2017-02-07 18:19:14 +0000] [6951] [INFO] Booting worker with pid: 6951
+[2017-02-07 18:19:16 +0000] [6949] [INFO] Worker exiting (pid: 6949)
+[2017-02-07 18:19:16 +0000] [6947] [INFO] Worker exiting (pid: 6947)
+[2017-02-07 18:19:16 +0000] [6948] [INFO] Worker exiting (pid: 6948)
+[2017-02-07 18:19:16 +0000] [6946] [INFO] Worker exiting (pid: 6946)
+[2017-02-07 18:19:16 +0000] [6950] [INFO] Worker exiting (pid: 6950)
+[2017-02-07 18:19:16 +0000] [6951] [INFO] Worker exiting (pid: 6951)
+[2017-02-07 18:19:40 +0000] [6958] [INFO] Starting gunicorn 19.6.0
+[2017-02-07 18:19:40 +0000] [6958] [INFO] Listening at: http://0.0.0.0:5000 (6958)
+[2017-02-07 18:19:40 +0000] [6958] [INFO] Using worker: sync
+[2017-02-07 18:19:40 +0000] [6961] [INFO] Booting worker with pid: 6961
+[2017-02-07 18:19:41 +0000] [6961] [INFO] Worker exiting (pid: 6961)
+[2017-02-07 18:19:41 +0000] [6958] [INFO] Shutting down: Master
+[2017-02-07 18:19:41 +0000] [6958] [INFO] Reason: App failed to load.
+[2017-02-07 18:20:32 +0000] [6971] [INFO] Starting gunicorn 19.6.0
+[2017-02-07 18:20:32 +0000] [6971] [INFO] Listening at: http://0.0.0.0:5000 (6971)
+[2017-02-07 18:20:32 +0000] [6971] [INFO] Using worker: sync
+[2017-02-07 18:20:32 +0000] [6974] [INFO] Booting worker with pid: 6974
+[2017-02-07 18:20:33 +0000] [6974] [INFO] Worker exiting (pid: 6974)
+[2017-02-07 18:20:33 +0000] [6971] [INFO] Shutting down: Master
+[2017-02-07 18:20:33 +0000] [6971] [INFO] Reason: App failed to load.
+[2017-02-07 18:20:45 +0000] [6976] [INFO] Starting gunicorn 19.6.0
+[2017-02-07 18:20:45 +0000] [6976] [INFO] Listening at: http://0.0.0.0:5000 (6976)
+[2017-02-07 18:20:45 +0000] [6976] [INFO] Using worker: sync
+[2017-02-07 18:20:45 +0000] [6979] [INFO] Booting worker with pid: 6979
+[2017-02-07 18:20:58 +0000] [6976] [INFO] Handling signal: int
+[2017-02-07 18:20:58 +0000] [6979] [INFO] Worker exiting (pid: 6979)
+[2017-02-07 18:20:59 +0000] [6976] [INFO] Shutting down: Master
+[2017-02-07 18:22:32 +0000] [6999] [INFO] Starting gunicorn 19.6.0
+[2017-02-07 18:22:32 +0000] [6999] [INFO] Listening at: http://0.0.0.0:5000 (6999)
+[2017-02-07 18:22:32 +0000] [6999] [INFO] Using worker: sync
+[2017-02-07 18:22:32 +0000] [7002] [INFO] Booting worker with pid: 7002
+[2017-02-07 18:22:41 +0000] [6999] [INFO] Handling signal: int
+[2017-02-07 18:22:41 +0000] [7002] [INFO] Worker exiting (pid: 7002)
+[2017-02-07 18:22:41 +0000] [6999] [INFO] Shutting down: Master
+[2017-03-01 18:52:33 +0000] [10016] [INFO] Starting gunicorn 19.6.0
+[2017-03-01 18:52:33 +0000] [10016] [INFO] Listening at: http://0.0.0.0:5000 (10016)
+[2017-03-01 18:52:33 +0000] [10016] [INFO] Using worker: sync
+[2017-03-01 18:52:33 +0000] [10019] [INFO] Booting worker with pid: 10019
+[2017-03-01 18:52:55 +0000] [10016] [INFO] Handling signal: int
+[2017-03-01 18:52:55 +0000] [10019] [INFO] Worker exiting (pid: 10019)
+[2017-03-01 18:52:55 +0000] [10016] [INFO] Shutting down: Master
