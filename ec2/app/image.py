@@ -106,7 +106,7 @@ def list_img():
 
     query = """SELECT * FROM images WHERE userId = %s"""
 
-    cursor.execute(query, (,))
+    cursor.execute(query, (id,))
 
     row = cursor.fetchone()
     #	http://s3.amazonaws.com/bucket/key  access an object
