@@ -37,11 +37,13 @@ def upload_img_save():
         return redirect(url_for("upload_img"))
 
     #get rotated images
-    f2 = image_transform(f, 90)
+    image_binary = f.read()
+
+    f2 = image_transform(image_binary, 90)
     f2_filename = f.filename + "_90"
-    f3 = image_transform(f, 180)
+    f3 = image_transform(image_binary, 180)
     f3_filename = f.filename + "_180"
-    f4 = image_transform(f, 270)
+    f4 = image_transform(image_binary, 270)
     f4_filename = f.filename + "_270"
 
     #upload files to s3 bucket
@@ -61,9 +63,9 @@ def upload_img_save():
 
 
 #Upload a new image and tranform it
-def image_transform(f, degree):
+def image_transform(image_binary, degree):
 
-    image_binary = f.read()
+    #image_binary = f.read()
 
     img = Image(blob=image_binary)
     i = img.clone()
