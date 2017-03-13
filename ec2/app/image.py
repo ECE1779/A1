@@ -116,10 +116,10 @@ def list_img():
     for obj in bucket.objects.all():
         print(obj.key)
     """
-    if row:
-        return render_template("image/list.html", title = "List images", cursor = cursor)
-    else:
-        return render_template("image/list.html", title = "List images", info_msg = "you dont have any images")
+
+    return render_template("image/list.html", title = "List images", cursor = cursor)
+
+    return render_template("image/list.html", title = "List images", info_msg = "you dont have any images")
 
 
 @webapp.route("/view_img/<fname>", methods=["GET"])
