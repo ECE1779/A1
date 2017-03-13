@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request, session, g
+from flask import render_template, redirect, url_for, request, session, g, flash
 from app import webapp
 import mysql.connector
 import boto3
@@ -108,7 +108,7 @@ def list_img():
 
     cursor.execute(query, (id,))
 
-    row = cursor.fetchone()
+    #row = cursor.fetchone()
     #	http://s3.amazonaws.com/bucket/key  access an object
     """
     s3 = boto3.resource('s3')
@@ -116,7 +116,8 @@ def list_img():
     for obj in bucket.objects.all():
         print(obj.key)
     """
-
+    for row in cursor:
+        flash(row[2])
     return render_template("image/list.html", title = "List images", cursor = cursor)
 
     return render_template("image/list.html", title = "List images", info_msg = "you dont have any images")
