@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+    
+    <table>
+    <thead>
+       <th>Instance ID</th>
+       <th>Type</th>
+       <th>Availability Zone</th>
+       <th>Status</th>
+       <th>Instance Summary</th>
+    </thead> 
+    {% for instance in instances %}
+        <tr>
+            <td>{{ instance.id }}</td>
+            <td>{{ instance.instance_type }}</td>
+            <td>{{ instance.placement['AvailabilityZone']}}</td>
+            <td>{{ instance.state['Name'] }}</td>
+                
+            <td>
+            
+                <form action="{{url_for('ec2_view',id=instance.id)}}" method='get'>
+                    <input type='submit' value='View' />
+                </form>
+            </td>
+
+            <td>
+                <form action="{{url_for('ec2_start',id=instance.id)}}" method='post' onsubmit='return confirm("Confirm to Start")'>
+                    <input type='submit' value='Start' />
+                </form>
+            </td>   
+            
+            <td>
+                <form action="{{url_for('elb_register',id=instance.id)}}" method='post' onsubmit='return confirm("Confirm to Add")'>
+                    <input type='submit' value='Add to Load Balancer' />
+                </form>
+            </td>
+            
+            <td>
+                <form action="{{url_for('elb_deregister',id=instance.id)}}" method='post' onsubmit='return confirm("Confirm to Remove")'>
+                    <input type='submit' value='Remove from Load Balancer' />
+                </form>
+            </td>
+        </tr>
+
+    
+    {% endfor %}
+    </table>
+    
+{% endblock %}
+
+

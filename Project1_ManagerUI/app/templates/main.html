@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <ul>
+        <li><a href="{{url_for('ec2_list')}}">Worker Pool Management</a></li>
+        <li><a href="{{url_for('auto_scale')}}">Auto Scale Policy</a></li>
+        <li><a href="{{url_for('ec2_list')}}">Delete Images from S3 Bucket</a></li>
+    </ul>
+
+{% endblock %}
