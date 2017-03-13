@@ -58,7 +58,7 @@ def upload_img_save():
     s3 = boto3.client("s3")
     #s3.upload_fileobj(f, "bucket-name", "key-name")
     s4 = boto3.resource("s3")
-    s4.Object("bucketforprj1", f.filename).put(Body=f)
+    s4.Object("bucketforprj1", f1_filename).put(Body=f)
     s3.upload_fileobj(f, "bucketforprj1", f1_filename)
     s3.upload_fileobj(f2, "bucketforprj1", f2_filename)
     s3.upload_fileobj(f3, "bucketforprj1", f3_filename)
@@ -88,7 +88,7 @@ def image_transform(image_binary, degree, fname):
     i.format = "jpeg"
     i.save(filename=fname)
 
-    newfile = open("temp/" + fname, "rb")
+    newfile = open(fname, "rb")
 
     return newfile
 
