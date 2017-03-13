@@ -39,17 +39,25 @@ def upload_img_save():
     #get rotated images
     image_binary = f.read()
 
-    f2 = image_transform(image_binary, 90)
-    f2_filename = f.filename + "_90"
-    f3 = image_transform(image_binary, 180)
-    f3_filename = f.filename + "_180"
-    f4 = image_transform(image_binary, 270)
-    f4_filename = f.filename + "_270"
+    f1_filename = "1_" + f.filename
+
+
+    f2_filename = "2_" + f.filename
+    f2 = image_transform(image_binary, 90, f2_filename)
+
+
+    f3_filename = "3_" + f.filename
+    f3 = image_transform(image_binary, 180, f3_filename)
+
+
+    f4_filename = "4_" + f.filename
+    f4 = image_transform(image_binary, 270, f4_filename)
+
 
     #upload files to s3 bucket
     s3 = boto3.client("s3")
     #s3.upload_fileobj(f, "bucket-name", "key-name")
-    s3.upload_fileobj(f, "bucketforprj1", f.filename)
+    s3.upload_fileobj(f, "bucketforprj1", f1_filename)
     s3.upload_fileobj(f2, "bucketforprj1", f2_filename)
     s3.upload_fileobj(f3, "bucketforprj1", f3_filename)
     s3.upload_fileobj(f4, "bucketforprj1", f4_filename)
@@ -57,13 +65,13 @@ def upload_img_save():
     cnx = get_db()
     cursor = cnx.cursor()
     query = ''' INSERT INTO images (userId,key1,key2,key3,key4) values (%s, %s, %s, %s, %s) '''
-    cursor.execute(query, (id, f.filename, f2_filename, f3_filename, f4_filename))
+    cursor.execute(query, (id, f1_filename, f2_filename, f3_filename, f4_filename))
     cnx.commit()
     return redirect(url_for('upload_img'))
 
 
 #Upload a new image and tranform it
-def image_transform(image_binary, degree):
+def image_transform(image_binary, degree, fname):
 
     #image_binary = f.read()
 
@@ -71,9 +79,12 @@ def image_transform(image_binary, degree):
     i = img.clone()
 
     i.rotate(degree)
-    jpeg_bin = i.make_blob("jpeg")
+    i.format = "jpeg"
+    i.save(filename=fname)
 
-    return jpeg_bin
+    newfile = open(fname, "rb")
+
+    return newfile
 
 
 
