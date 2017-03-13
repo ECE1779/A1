@@ -40,7 +40,7 @@ def upload_img_save():
     image_binary = f.read()
 
     f1_filename = "1_" + f.filename
-
+    f1 = image_transform(image_binary, 0, f1_filename)
 
     f2_filename = "2_" + f.filename
     f2 = image_transform(image_binary, 90, f2_filename)
@@ -57,9 +57,9 @@ def upload_img_save():
     #upload files to s3 bucket
     s3 = boto3.client("s3")
     #s3.upload_fileobj(f, "bucket-name", "key-name")
-    s4 = boto3.resource("s3")
-    s4.Object("bucketforprj1", f1_filename).put(Body=f)
-    s3.upload_fileobj(f, "bucketforprj1", f1_filename)
+    #s4 = boto3.resource("s3")
+    #s4.Object("bucketforprj1", f1_filename).put(Body=f)
+    s3.upload_fileobj(f1, "bucketforprj1", f1_filename)
     s3.upload_fileobj(f2, "bucketforprj1", f2_filename)
     s3.upload_fileobj(f3, "bucketforprj1", f3_filename)
     s3.upload_fileobj(f4, "bucketforprj1", f4_filename)

@@ -5,8 +5,7 @@
 
 
 
-    <form action='{{url_for("upload_img_save")}}' method='post' enctype='multipart/form-data'
-          onsubmit="return validateForm()">
+    <form action='{{url_for("upload_img_save")}}' method='post' enctype='multipart/form-data'>
         <input type='file' id='new_file' name='new_file' />
         <input type="submit" value="Upload New File" />
         <input type="reset">
