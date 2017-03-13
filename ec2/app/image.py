@@ -57,7 +57,8 @@ def upload_img_save():
     #upload files to s3 bucket
     s3 = boto3.client("s3")
     #s3.upload_fileobj(f, "bucket-name", "key-name")
-    s3.upload_fileobj(f, "bucketforprj1", f1_filename)
+    s3.Object("bucketforprj1", f1_filename).put(Body=f)
+    #s3.upload_fileobj(f, "bucketforprj1", f1_filename)
     s3.upload_fileobj(f2, "bucketforprj1", f2_filename)
     s3.upload_fileobj(f3, "bucketforprj1", f3_filename)
     s3.upload_fileobj(f4, "bucketforprj1", f4_filename)
