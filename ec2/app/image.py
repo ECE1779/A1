@@ -116,7 +116,7 @@ def list_img():
     for obj in bucket.objects.all():
         print(obj.key)
     """
-    count = cursor.rowcount()
+    count = cursor.rowcount
     if count > 0:
         return render_template("image/list.html", title = "List images", cursor = cursor)
     else:
