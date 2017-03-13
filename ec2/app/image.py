@@ -100,10 +100,13 @@ def list_img():
     cnx = get_db()
 
     cursor = cnx.cursor()
+    query = """SELECT * FROM users WHERE login = %s"""
+    cursor.execute(query, (session["username"],))
+    id = cursor.fetchone()[0]
 
     query = """SELECT * FROM images WHERE userId = %s"""
 
-    cursor.execute(query, (session["username"],))
+    cursor.execute(query, (,))
 
     row = cursor.fetchone()
     #	http://s3.amazonaws.com/bucket/key  access an object
