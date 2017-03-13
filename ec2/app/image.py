@@ -73,7 +73,7 @@ def upload_img_save():
     query = ''' INSERT INTO images (userId,key1,key2,key3,key4) values (%s, %s, %s, %s, %s) '''
     cursor.execute(query, (id, f1_filename, f2_filename, f3_filename, f4_filename))
     cnx.commit()
-    return redirect(url_for('upload_img'))
+    return redirect(url_for('list_img'))
 
 
 #Upload a new image and tranform it
@@ -108,7 +108,7 @@ def list_img():
 
     cursor.execute(query, (id,))
 
-    row = cursor.fetchone()
+    #row = cursor.fetchone()
     #	http://s3.amazonaws.com/bucket/key  access an object
     """
     s3 = boto3.resource('s3')
@@ -116,7 +116,7 @@ def list_img():
     for obj in bucket.objects.all():
         print(obj.key)
     """
-    if row:
+    if cursor[0]:
         return render_template("image/list.html", title = "List images", cursor = cursor)
     else:
         return render_template("image/list.html", title = "List images", info_msg = "you dont have any images")
@@ -127,10 +127,14 @@ def view_img(fname):
     cnx = get_db()
 
     cursor = cnx.cursor()
+    query = """SELECT * FROM users WHERE login = %s"""
+    cursor.execute(query, (session["username"],))
+    id = cursor.fetchone()[0]
+
 
     query = """SELECT * FROM images where userId = %s AND key1 = %s"""
 
-    cursor.execute(query, (session["username"], fname))
+    cursor.execute(query, (id, fname))
 
     row = cursor.fetchone()
 
