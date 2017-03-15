@@ -81,7 +81,7 @@ def grow_pool():
     for instance_id, status in elb_worker_pool:
         if status == "true":
             active_worker_count += 1
-        if status == "false" AND active_worker_count < expected_worker_count:
+        if status == "false" and active_worker_count < expected_worker_count:
             elb_worker_pool[instance_id] = "true"
             #add to pool 
 
@@ -110,7 +110,7 @@ def shrink_pool():
 
 
     for instance_id, status in elb_worker_pool:
-        if status == "true" AND active_worker_count > expected_worker_count:
+        if status == "true" and active_worker_count > expected_worker_count:
             active_worker_count -= 1
             # Remove instane to Elastic Load Balancer
 
