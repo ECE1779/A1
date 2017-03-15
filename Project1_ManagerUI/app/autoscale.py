@@ -8,7 +8,10 @@ from app.config import *
 
 def background_monitor():
     ec2 = boto3.resource('ec2')
-
+    global high_threshold 
+    global low_threshold
+    global grow_ratio
+    global shrink_ratio
     while True:
         """
         all_ec2_instances = ec2.instances.all()
@@ -73,7 +76,12 @@ def background_monitor():
 
 def grow_pool():
     print("grow")
+    global high_threshold 
+    global low_threshold
+    global grow_ratio
+    global shrink_ratio
     global elb_worker_pool
+    
     active_worker_count = 0
     for instance_id, status in elb_worker_pool.items():
         if status == "true":
@@ -105,6 +113,10 @@ def grow_pool():
 
 def shrink_pool():
     print("shrink")
+    global high_threshold 
+    global low_threshold
+    global grow_ratio
+    global shrink_ratio
     global elb_worker_pool
     active_worker_count = 0
     for instance_id, status in elb_worker_pool.items():
