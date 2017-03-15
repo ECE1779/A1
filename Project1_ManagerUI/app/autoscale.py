@@ -108,10 +108,10 @@ def grow_pool():
         expected_worker_count = 4
 
 
-    active_worker_count = 0
+    #active_worker_count = 0
     for instance_id, status in elb_worker_pool.items():
-        if status == "true":
-            active_worker_count += 1
+        #if status == "true":
+            #active_worker_count += 1
         if status == "false" and active_worker_count < expected_worker_count:
             elb_worker_pool[instance_id] = "true"
             #add to pool 
