@@ -46,8 +46,8 @@ def background_monitor():
         )
         for instances in response["InstanceStates"]:
             elb_worker_pool.update({instances["InstanceId"]:"true"})
-
-
+            
+        print(elb_worker_pool)
         for instance_id, status in elb_worker_pool.items():
             if status == "true":
                 #get cpu
@@ -59,8 +59,10 @@ def background_monitor():
                 active_worker_count += 1
                 
         avg_cpu = total_cpu / active_worker_count
+        print(active_worker_count + " workers  " + avg_cpu + " avg cpu")
         if avg_cpu > high_threshold:
             grow_pool()
+            
         if avg_cpu < low_threshold:
             shrink_pool()
 
@@ -69,6 +71,7 @@ def background_monitor():
 
 
 def grow_pool():
+    print("grow")
     global elb_worker_pool
     active_worker_count = 0
     for instance_id, status in elb_worker_pool.items():
@@ -100,6 +103,7 @@ def grow_pool():
 
 
 def shrink_pool():
+    print("shrink")
     global elb_worker_pool
     active_worker_count = 0
     for instance_id, status in elb_worker_pool.items():
