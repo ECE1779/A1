@@ -3,6 +3,7 @@ import time
 from datetime import datetime, timedelta
 from operator import itemgetter
 
+
 from app.config import *
 
 def background_monitor():
