@@ -148,7 +148,16 @@ def ec2_start(id):
 @webapp.route('/manager_UI/autoscale',methods=['GET'])
 # Display an empty HTML form that allows users to define new student.
 def auto_scale():
-    return render_template("manager_UI/autoscale.html",title="Auto Scale Policy", maxCPU = high_threshold, minCPU=low_threshold, upRatio=grow_ratio, downRatio = shrink_ratio)
+
+
+    cnx = get_db()
+    cursor = cnx.cursor()
+    query = """SELECT * FROM autoscale WHERE id=%s"""
+    cursor.execute(query,(1,))
+    row = cursor.fetchone()
+        
+
+    return render_template("manager_UI/autoscale.html",title="Auto Scale Policy", maxCPU = row[1], minCPU=row[2], upRatio=row[3], downRatio = row[4])
 
 @webapp.route('/manager_UI/autoscale',methods=['POST'])
 def auto_scale_policy():
