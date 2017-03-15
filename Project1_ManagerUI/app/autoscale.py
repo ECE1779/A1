@@ -81,7 +81,7 @@ def grow_pool():
 
 
     active_worker_count = 0
-    for instance_id, status in elb_worker_pool:
+    for instance_id, status in elb_worker_pool.items():
         if status == "true":
             active_worker_count += 1
         if status == "false" and active_worker_count < expected_worker_count:
@@ -102,7 +102,7 @@ def grow_pool():
 def shrink_pool():
     global elb_worker_pool
     active_worker_count = 0
-    for instance_id, status in elb_worker_pool:
+    for instance_id, status in elb_worker_pool.items():
         if status == "true":
             active_worker_count += 1
 
