@@ -35,6 +35,16 @@ def background_monitor():
         avg_cpu = 0
         total_cpu = 0
         active_worker_count = 0
+
+
+        global elb_worker_pool
+        response = client.describe_instance_health(
+            LoadBalancerName='my-load-balancer',
+        )
+        for instances in response["InstanceStates"]:
+            elb_worker_pool.update({instances["InstanceId"]:"true"})
+
+
         for instance_id, status in elb_worker_pool:
             if status == "true":
                 #get cpu
