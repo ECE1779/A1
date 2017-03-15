@@ -4,7 +4,7 @@
     <ul>
         <li><a href="{{url_for('ec2_list')}}">Worker Pool Management</a></li>
         <li><a href="{{url_for('auto_scale')}}">Auto Scale Policy</a></li>
-        <li><a href="{{url_for('ec2_list')}}">Delete Images from S3 Bucket</a></li>
+        <li><a href="{{url_for('delete_all')}}" onclick="return confirm('Are you sure?')">Delete Images from S3 Bucket</a></li>
     </ul>
 
 {% endblock %}

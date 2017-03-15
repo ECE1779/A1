@@ -1,12 +1,32 @@
 from flask import render_template, redirect, url_for, request
 from app import webapp
-
+import mysql.connector
 import boto3
+from app.config import db_config
 from app import config
 from datetime import datetime, timedelta
 from dateutil import tz
 
 from operator import itemgetter
+
+def connect_to_database():
+    return mysql.connector.connect(user=db_config['user'],
+                                   password=db_config['password'],
+                                   host=db_config['host'],
+                                   database=db_config['database'])
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = connect_to_database()
+    return db
+
+
+@webapp.teardown_appcontext
+def teardown_db(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
 
 
 @webapp.route('/manager_UI',methods=['GET'])
@@ -138,5 +158,23 @@ def auto_scale_policy():
     scale_down_ratio = request.form.get('Scale Down Ratio',"")     
     
     return redirect(url_for('ec2_list'))
+
+
+@webapp.route("/manager_UI/deleteall", methods=["GET"])
+def delete_all():
+    # S3 delete everything in `bucket`
+    s3 = boto3.resource('s3')
+    s3.buckets('bucketforprj1').objects.delete()
+
+    cnx = get_db()
+
+    cursor = cnx.cursor()
+    query = """TRUNCATE images"""
+    cursor.execute(query)
+
+    cnx.commit()
+    return
+
+
 
 
