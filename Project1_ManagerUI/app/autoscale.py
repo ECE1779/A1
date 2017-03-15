@@ -8,7 +8,7 @@ def background_monitor():
     ec2 = boto3.resource('ec2')
 
     while True:
-    """
+        """
         all_ec2_instances = ec2.instances.all()
         for instance in all_ec2_instances:
             if instance.tags is not None:
@@ -31,7 +31,7 @@ def background_monitor():
                             shrink_pool()
 
 
-                   """
+        """
         avg_cpu = 0
         total_cpu = 0
         active_worker_count = 0
