@@ -38,6 +38,7 @@ def background_monitor():
 
 
         global elb_worker_pool
+        client = boto3.client('elb')
         response = client.describe_instance_health(
             LoadBalancerName='my-load-balancer',
         )
