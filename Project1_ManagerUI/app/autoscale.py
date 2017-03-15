@@ -40,7 +40,7 @@ def background_monitor():
         global elb_worker_pool
         client = boto3.client('elb')
         response = client.describe_instance_health(
-            LoadBalancerName='my-load-balancer',
+            LoadBalancerName='PRJ1-LB',
         )
         for instances in response["InstanceStates"]:
             elb_worker_pool.update({instances["InstanceId"]:"true"})
