@@ -46,7 +46,7 @@ def background_monitor():
             elb_worker_pool.update({instances["InstanceId"]:"true"})
 
 
-        for instance_id, status in elb_worker_pool:
+        for instance_id, status in elb_worker_pool.items():
             if status == "true":
                 #get cpu
 
