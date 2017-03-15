@@ -212,9 +212,7 @@ def upload_file():
 
                 cnx = get_db()
                 cursor = cnx.cursor()
-                query = """SELECT * FROM users WHERE login = %s"""
-                cursor.execute(query, (session["username"],))
-                id = cursor.fetchone()[0]
+
 
                 query = ''' INSERT INTO images (userId,key1,key2,key3,key4) values (%s, %s, %s, %s, %s) '''
                 cursor.execute(query, (id, f1_filename, f2_filename, f3_filename, f4_filename))
