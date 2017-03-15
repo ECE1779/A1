@@ -5,7 +5,11 @@ db_config = {'user': 'ece1779',
              'host': '54.172.150.28',
              'database': 'ece1779'}
 
+high_threshold = 30
+low_threshold = 20
 
+grow_ratio=2
+shrink_ratio=2
 
 elb_worker_pool = {"i-0501a8096a06f2b0f":"false",
                     "i-06c57d5fed59e008f":"false",
