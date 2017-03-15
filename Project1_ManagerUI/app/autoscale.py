@@ -71,7 +71,7 @@ def background_monitor():
 def grow_pool():
     global elb_worker_pool
     active_worker_count = 0
-    for instance_id, status in elb_worker_pool:
+    for instance_id, status in elb_worker_pool.items():
         if status == "true":
             active_worker_count += 1
 
@@ -112,7 +112,7 @@ def shrink_pool():
 
 
 
-    for instance_id, status in elb_worker_pool:
+    for instance_id, status in elb_worker_pool.items():
         if status == "true" and active_worker_count > expected_worker_count:
             active_worker_count -= 1
             # Remove instane to Elastic Load Balancer
