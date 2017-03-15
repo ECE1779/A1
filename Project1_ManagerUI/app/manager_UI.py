@@ -157,16 +157,17 @@ def auto_scale_policy():
     scale_up_ratio = request.form.get('scale_up_ratio')
     scale_down_ratio = request.form.get('scale_down_ratio')   
 
-    global high_threshold 
-    global low_threshold
-    global grow_ratio
-    global shrink_ratio
+    #magic        
+    cnx = get_db()
+    cursor = cnx.cursor()
+    query = """UPDATE autoscale SET high_threshold=%s, low_threshold=%s, grow_ratio=%s, shrink_ratio=%s WHERE id=%s"""
 
-    high_threshold = maxCPU
-    low_threshold = minCPU
-    grow_ratio = scale_up_ratio
-    shrink_ratio = scale_down_ratio
-    print(str(high_threshold) + " " + str(low_threshold) + " "  +str(grow_ratio) + " " + str(shrink_ratio))
+    cursor.execute(query,(maxCPU, minCPU, scale_up_ratio, scale_down_ratio,1))
+    cnx.commit()
+    #magic ends here
+
+
+    #print(str(high_threshold) + " " + str(low_threshold) + " "  +str(grow_ratio) + " " + str(shrink_ratio))
     return redirect(url_for('ec2_list'))
 
 

@@ -2,16 +2,13 @@ import boto3
 import time
 from datetime import datetime, timedelta
 from operator import itemgetter
-
+import mysql.connector
 
 from app.config import *
 
 def background_monitor():
     ec2 = boto3.resource('ec2')
-    global high_threshold 
-    global low_threshold
-    global grow_ratio
-    global shrink_ratio
+
     while True:
         """
         all_ec2_instances = ec2.instances.all()
@@ -37,6 +34,22 @@ def background_monitor():
 
 
         """
+        #magic        
+        global high_threshold 
+        global low_threshold
+        global grow_ratio
+        global shrink_ratio
+        cnx = get_db()
+        cursor = cnx.cursor()
+        query = """SELECT * FROM autoscale WHERE id=%s"""
+        cursor.execute(query,(1,))
+        row = cursor.fetchone()
+        
+        high_threshold = row[1]
+        low_threshold = row[2]
+        grow_ratio = row[3]
+        shrink_ratio = row[4]
+        #magic ends here
 
         avg_cpu = 0
         total_cpu = 0
@@ -76,10 +89,7 @@ def background_monitor():
 
 def grow_pool():
     print("grow")
-    global high_threshold 
-    global low_threshold
-    global grow_ratio
-    global shrink_ratio
+
     global elb_worker_pool
     print(str(high_threshold) + " " + str(low_threshold) + " "  +str(grow_ratio) + " " + str(shrink_ratio))
     active_worker_count = 0
@@ -113,10 +123,7 @@ def grow_pool():
 
 def shrink_pool():
     print("shrink")
-    global high_threshold 
-    global low_threshold
-    global grow_ratio
-    global shrink_ratio
+
     global elb_worker_pool
     print(str(high_threshold) + " " + str(low_threshold) + " "  +str(grow_ratio) + " " + str(shrink_ratio))
     active_worker_count = 0
