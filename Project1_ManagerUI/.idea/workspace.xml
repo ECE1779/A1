@@ -19,7 +19,7 @@
     <favorites_list name="solution" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.36802974">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="s3_examples.py" pinned="false" current-in-tab="false">
@@ -50,7 +50,7 @@
                 <state relative-caret-position="195">
                   <caret line="69" column="22" lean-forward="false" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
                   <folding>
-                    <marker date="1489542524522" expanded="true" signature="0:277" ph="import ..." />
+                    <marker date="1489543725278" expanded="true" signature="0:277" ph="import ..." />
                   </folding>
                 </state>
               </provider>
@@ -93,9 +93,11 @@
           <file leaf-file-name="manager_UI.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/manager_UI.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="64" lean-forward="false" selection-start-line="0" selection-start-column="64" selection-end-line="0" selection-end-column="64" />
-                  <folding />
+                <state relative-caret-position="571">
+                  <caret line="165" column="29" lean-forward="true" selection-start-line="165" selection-start-column="29" selection-end-line="165" selection-end-column="29" />
+                  <folding>
+                    <element signature="e#0#64#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -681,9 +683,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/manager_UI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="64" lean-forward="false" selection-start-line="0" selection-start-column="64" selection-end-line="0" selection-end-column="64" />
-          <folding />
+        <state relative-caret-position="571">
+          <caret line="165" column="29" lean-forward="true" selection-start-line="165" selection-start-column="29" selection-end-line="165" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#64#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

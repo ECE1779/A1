@@ -164,7 +164,7 @@ def auto_scale_policy():
 def delete_all():
     # S3 delete everything in `bucket`
     s3 = boto3.resource('s3')
-    s3.buckets('bucketforprj1').objects.delete()
+    s3.Bucket('bucketforprj1').objects.delete()
 
     cnx = get_db()
 
@@ -173,7 +173,7 @@ def delete_all():
     cursor.execute(query)
 
     cnx.commit()
-    return
+    return redirect("main.html")
 
 
 
