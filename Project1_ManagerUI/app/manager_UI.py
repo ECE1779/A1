@@ -166,7 +166,7 @@ def auto_scale_policy():
     low_threshold = minCPU
     grow_ratio = scale_up_ratio
     shrink_ratio = scale_down_ratio
-    
+    print(str(high_threshold) + " " + str(low_threshold) + " "  +str(grow_ratio) + " " + str(shrink_ratio))
     return redirect(url_for('ec2_list'))
 
 

@@ -37,7 +37,7 @@ def background_monitor():
 
 
         """
-        print(str(high_threshold) + " " + str(low_threshold) + " "  +str(grow_ratio) + " " + str(shrink_ratio))
+
         avg_cpu = 0
         total_cpu = 0
         active_worker_count = 0
@@ -81,7 +81,7 @@ def grow_pool():
     global grow_ratio
     global shrink_ratio
     global elb_worker_pool
-    
+    print(str(high_threshold) + " " + str(low_threshold) + " "  +str(grow_ratio) + " " + str(shrink_ratio))
     active_worker_count = 0
     for instance_id, status in elb_worker_pool.items():
         if status == "true":
@@ -118,12 +118,13 @@ def shrink_pool():
     global grow_ratio
     global shrink_ratio
     global elb_worker_pool
+    print(str(high_threshold) + " " + str(low_threshold) + " "  +str(grow_ratio) + " " + str(shrink_ratio))
     active_worker_count = 0
     for instance_id, status in elb_worker_pool.items():
         if status == "true":
             active_worker_count += 1
     print(str(active_worker_count) + " workers")
-    expected_worker_count = active_worker_count / grow_ratio
+    expected_worker_count = active_worker_count / shrink_ratio
     if expected_worker_count < 1:
         expected_worker_count = 1
 
