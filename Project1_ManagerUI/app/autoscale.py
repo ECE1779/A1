@@ -3,7 +3,7 @@ import time
 from datetime import datetime, timedelta
 from operator import itemgetter
 import mysql.connector
-
+from app import webapp
 from app.config import *
 def connect_to_database():
     return mysql.connector.connect(user=db_config['user'],
