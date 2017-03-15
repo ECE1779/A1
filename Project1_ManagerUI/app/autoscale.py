@@ -59,7 +59,7 @@ def background_monitor():
                 active_worker_count += 1
                 
         avg_cpu = total_cpu / active_worker_count
-        print(active_worker_count + " workers  " + avg_cpu + " avg cpu")
+        print(str(active_worker_count) + " workers  " + str(avg_cpu) + " avg cpu")
         if avg_cpu > high_threshold:
             grow_pool()
             
