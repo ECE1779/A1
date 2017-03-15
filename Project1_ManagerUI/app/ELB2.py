@@ -19,9 +19,7 @@ class AutoScaling(object):
         print 'Start auto-scaling'
         while True:
             elb = boto3.client('elb')
-            instances = \
-            elb.describe_load_balancers(LoadBalancerNames=[aws_config['ELB_NAME']]).get('LoadBalancerDescriptions')[
-                0].get('Instances')
+            instances = elb.describe_load_balancers(LoadBalancerNames=[aws_config['ELB_NAME']]).get('LoadBalancerDescriptions')[0].get('Instances')
             currNumOfWorkers = len(instances)
 
             lbActions = LoadBalancerActions()
