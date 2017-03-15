@@ -52,7 +52,7 @@ def background_monitor():
                 #get cpu
 
                 cpu = get_worker_utilization(instance_id)
-                current_instance_cpu = float(cpu['Datapoints']['Average'])
+                current_instance_cpu = float(cpu['Datapoints'][0]['Average'])
                 
                 total_cpu += current_instance_cpu
                 active_worker_count += 1
