@@ -215,7 +215,7 @@ def upload_file():
 
 
                 query = ''' INSERT INTO images (userId,key1,key2,key3,key4) values (%s, %s, %s, %s, %s) '''
-                cursor.execute(query, (id, f1_filename, f2_filename, f3_filename, f4_filename))
+                cursor.execute(query, (userid, f1_filename, f2_filename, f3_filename, f4_filename))
                 cnx.commit()
 
                 flash(u"Upload Success!", 'success')
