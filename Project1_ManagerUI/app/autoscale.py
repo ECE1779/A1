@@ -58,9 +58,9 @@ def background_monitor():
                 active_worker_count += 1
                 
         avg_cpu = total_cpu / active_worker_count
-        if avg_cpu > high_threashold:
+        if avg_cpu > high_threshold:
             grow_pool()
-        if avg_cpu < low_threashold:
+        if avg_cpu < low_threshold:
             shrink_pool()
 
         time.sleep(10)

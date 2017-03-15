@@ -5,8 +5,8 @@ db_config = {'user': 'ece1779',
              'host': '54.172.150.28',
              'database': 'ece1779'}
 
-high_cpu_threshold = 40
-low_cpu_threshold = 10
+high_threshold = 40
+low_threshold = 10
 
 grow_ratio=2
 shrink_ratio=2
