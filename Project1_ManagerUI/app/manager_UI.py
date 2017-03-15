@@ -173,7 +173,7 @@ def delete_all():
     cursor.execute(query)
 
     cnx.commit()
-    return redirect("main.html")
+    return render_template("main.html", title="Project #1 - Manager UI")
 
 
 
