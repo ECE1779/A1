@@ -148,14 +148,24 @@ def ec2_start(id):
 @webapp.route('/manager_UI/autoscale',methods=['GET'])
 # Display an empty HTML form that allows users to define new student.
 def auto_scale():
-    return render_template("manager_UI/autoscale.html",title="Auto Scale Policy")
+    return render_template("manager_UI/autoscale.html",title="Auto Scale Policy", maxCPU = high_threshold, minCPU=low_threshold, upRatio=grow_ratio, downRatio = shrink_ratio)
 
 @webapp.route('/manager_UI/autoscale',methods=['POST'])
 def auto_scale_policy():
-    maxCPU = request.form.get('Max CPU Usage (%) for Scale up',"")
-    minCPU = request.form.get('Min CPU Usage (%) for Scale down',"") 
-    scale_up_ratio = request.form.get('Scale Up Ratio',"")
-    scale_down_ratio = request.form.get('Scale Down Ratio',"")     
+    maxCPU = request.form.get('maxCPU')
+    minCPU = request.form.get('minCPU') 
+    scale_up_ratio = request.form.get('scale_up_ratio')
+    scale_down_ratio = request.form.get('scale_down_ratio')   
+
+    global high_threshold 
+    global low_threshold
+    global grow_ratio
+    global shrink_ratio
+
+    high_threshold = maxCPU
+    low_threshold = minCPU
+    grow_ratio = scale_up_ratio
+    shrink_ratio = scale_down_ratio
     
     return redirect(url_for('ec2_list'))
 

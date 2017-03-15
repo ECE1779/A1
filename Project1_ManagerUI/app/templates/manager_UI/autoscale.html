@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class='error'>{{error_msg if error_mag != None}}</div>
+    <div class='error'>{{error_msg if error_msg != None}}</div>
     
     
     
  
      <h2>Pool Auto Scale by CPU Usage </h2>
-     
+     <form action="{{url_for('auto_scale_policy')}}" method='POST'
         <div> 
         <label>Max CPU Usage (%) for Scale up</label>
         <input type='text' name='maxCPU' value='{{maxCPU if maxCPU  != None}}'>
@@ -17,21 +17,22 @@
         <input type='text' name='minCPU' value='{{minCPU if minCPU  != None}}'>
         </div>
 
-        <div><input type="submit" value="Apply"></div>
-    </form>
+
+
     
      <h2>Pool Auto Scale by Ratio </h2>
      
         <div> 
         <label>Scale Up Ratio </label>
-        <input type='text' name='scale_up_ratio' value='{{maxCPU if maxCPU  != None}}'>
+        <input type='text' name='scale_up_ratio' value='{{upRatio if upRatio  != None}}'>
         </div>
         
         <div>
         <label>Scale Down Ratio</label>
-        <input type='text' name='scale_down_ratio' value='{{minCPU if minCPU  != None}}'>
+        <input type='text' name='scale_down_ratio' value='{{downRatio if downRatio  != None}}'>
         </div>
 
         <div><input type="submit" value="Apply"></div>
+    </form>
      
 {% endblock %}
