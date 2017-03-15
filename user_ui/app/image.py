@@ -175,13 +175,14 @@ def upload_file():
         if f:
             # query the database to find whether the account exist and the password is right
             cnx = get_db()
+            
             cursor = cnx.cursor()
             query = '''SELECT * FROM users WHERE login = %s AND password = %s
             '''
             cursor.execute(query,(userid,password))
             row = cursor.fetchone()
             if row is not None:
-
+                userid = row[0]
                 #get rotated images
                 image_binary = f.read()
 
