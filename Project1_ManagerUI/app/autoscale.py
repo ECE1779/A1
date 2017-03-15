@@ -34,6 +34,7 @@ def background_monitor():
 
 
         """
+        print(str(high_threshold) + " " + str(low_threshold) + " "  +str(grow_ratio) + " " + str(shrink_ratio))
         avg_cpu = 0
         total_cpu = 0
         active_worker_count = 0
