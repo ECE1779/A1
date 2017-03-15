@@ -120,7 +120,7 @@ def shrink_pool():
         if status == "true" and active_worker_count > expected_worker_count:
             active_worker_count -= 1
             # Remove instane to Elastic Load Balancer
-
+            elb_worker_pool[instance_id] = "false"
             client = boto3.client('elb')
             
             response = client.deregister_instances_from_load_balancer(
