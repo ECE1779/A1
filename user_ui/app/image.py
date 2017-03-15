@@ -144,6 +144,89 @@ def view_img(fname):
     else:
         return redirect(url_for("user_ui"), error_msg="image not found")
 
+@webapp.route('/test/FileUpload',methods=['GET'])
+#Return file upload form
+def upload_form():
+    return render_template("/image/testUpload.html")
+
+
+@webapp.route('/test/FileUpload', methods=['POST'])
+#Show the uploaded image
+def upload_file():
+    if request.method == 'POST':
+        userid = request.form.get("userID")
+        password = request.form.get("password")
+
+        # check if the post request has the file part
+        if 'uploadedfile' not in request.files:
+            # return "Missing uploaded file"
+            flash(u'Missing uploaded file', 'warning')
+            return render_template("/fileupload/form.html")
+
+        f = request.files['uploadedfile']
+
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if f.filename == '':
+            # return 'Missing file name'
+            flash(u"Missing file name", 'warning')
+            return render_template("/fileupload/form.html")
+
+        if f:
+            # query the database to find whether the account exist and the password is right
+            cnx = get_db()
+            cursor = cnx.cursor()
+            query = '''SELECT * FROM users WHERE login = %s AND password = %s
+            '''
+            cursor.execute(query,(userid,password))
+            row = cursor.fetchone()
+            if row is not None:
+
+                #get rotated images
+                image_binary = f.read()
+
+                f1_filename = "1_" + f.filename
+                f1 = image_transform(image_binary, 0, f1_filename)
+
+                f2_filename = "2_" + f.filename
+                f2 = image_transform(image_binary, 90, f2_filename)
+
+
+                f3_filename = "3_" + f.filename
+                f3 = image_transform(image_binary, 180, f3_filename)
+
+
+                f4_filename = "4_" + f.filename
+                f4 = image_transform(image_binary, 270, f4_filename)
+
+
+                #upload files to s3 bucket
+                s3 = boto3.client("s3")
+                #s3.upload_fileobj(f, "bucket-name", "key-name")
+                #s4 = boto3.resource("s3")
+                #s4.Object("bucketforprj1", f1_filename).put(Body=f)
+                s3.upload_fileobj(f1, "bucketforprj1", f1_filename)
+                s3.upload_fileobj(f2, "bucketforprj1", f2_filename)
+                s3.upload_fileobj(f3, "bucketforprj1", f3_filename)
+                s3.upload_fileobj(f4, "bucketforprj1", f4_filename)
+
+                cnx = get_db()
+                cursor = cnx.cursor()
+                query = """SELECT * FROM users WHERE login = %s"""
+                cursor.execute(query, (session["username"],))
+                id = cursor.fetchone()[0]
+
+                query = ''' INSERT INTO images (userId,key1,key2,key3,key4) values (%s, %s, %s, %s, %s) '''
+                cursor.execute(query, (id, f1_filename, f2_filename, f3_filename, f4_filename))
+                cnx.commit()
+
+                flash(u"Upload Success!", 'success')
+                return render_template("/image/testUpload.html")
+            else:
+                flash(u"Username does not exist or password is wrong!",'warning')
+                return render_template("/image/testUpload.html")
+    return render_template("/image/testUpload.html")
+
 
 
 
