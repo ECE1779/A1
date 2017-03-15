@@ -3,9 +3,23 @@ import time
 from datetime import datetime, timedelta
 from operator import itemgetter
 import mysql.connector
-
+from flask import render_template, redirect, url_for, request, g
 from app.config import *
-from manager_UI import *
+def connect_to_database():
+    return mysql.connector.connect(user=db_config['user'],
+                                   password=db_config['password'],
+                                   host=db_config['host'],
+                                   database=db_config['database'])
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = connect_to_database()
+    return db
+
+
+
+
 def background_monitor():
     ec2 = boto3.resource('ec2')
 
@@ -50,7 +64,8 @@ def background_monitor():
         grow_ratio = row[3]
         shrink_ratio = row[4]
         #magic ends here
-
+        cursor.close()
+        cnx.close()
         avg_cpu = 0
         total_cpu = 0
         active_worker_count = 0
