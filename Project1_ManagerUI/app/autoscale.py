@@ -109,7 +109,7 @@ def shrink_pool():
     for instance_id, status in elb_worker_pool.items():
         if status == "true":
             active_worker_count += 1
-
+    print(str(active_worker_count) + " workers")
     expected_worker_count = active_worker_count / grow_ratio
     if expected_worker_count < 1:
         expected_worker_count = 1
@@ -126,7 +126,7 @@ def shrink_pool():
             response = client.deregister_instances_from_load_balancer(
             Instances=[{'InstanceId':instance_id,},], LoadBalancerName = 'PRJ1-LB',
             )
-            
+            print("removing " + instance_id)
 
 
 
