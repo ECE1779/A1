@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, request, g
 from app import webapp
 import mysql.connector
 import boto3
-from app.config import db_config
+from app.config import *
 from app import config
 from datetime import datetime, timedelta
 from dateutil import tz
