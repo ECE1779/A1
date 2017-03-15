@@ -2,7 +2,7 @@ import boto3
 import time
 
 
-import config
+from app.config import *
 
 def background_monitor():
     ec2 = boto3.resource('ec2')
